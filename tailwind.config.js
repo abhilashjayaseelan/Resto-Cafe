@@ -1,11 +1,15 @@
 export const content = [
-    './src/**/*.html',
-    './src/**/*.js',
-    './src/**/*.jsx',
-    './src/**/*.ts',
-    './src/**/*.tsx', // TSX files
+  "./src/**/*.html",
+  "./src/**/*.js",
+  "./src/**/*.jsx",
+  "./src/**/*.ts",
+  "./src/**/*.tsx", // TSX files
 ];
 export const theme = {
-    extend: {},
+  extend: {
+    fontFamily: {
+      "times-new-roman": ["Times New Roman", "serif"],
+    },
+  },
 };
 export const plugins = [];

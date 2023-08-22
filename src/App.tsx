@@ -1,9 +1,9 @@
-import Categories from "./components/Categories";
+import Restaurant from "./pages/Restaurant"
 
-export const Restaurant: React.FC = () => {
+export const Restaurants: React.FC = () => {
   return(
     <div>
-      <Categories/>
+      <Restaurant/>
     </div>
   )
 }

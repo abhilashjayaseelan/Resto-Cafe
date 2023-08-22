@@ -1,18 +1,17 @@
-import { createBrowserRouter} from 'react-router-dom';
-import { Restaurant } from './App';
-
+import { createBrowserRouter } from "react-router-dom";
+import { Restaurants } from "./App";
 
 const appRouter = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <Restaurants />,
+    children: [
+      {
         path: "/",
-        element: <Restaurant/>,
-        children: [
-          {
-            path: "/",
-            element: <Restaurant/>
-          },
-        ],
+        element: <Restaurants />,
       },
-])
+    ],
+  },
+]);
 
 export default appRouter;
