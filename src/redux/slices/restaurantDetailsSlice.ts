@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getRestaurantDishes } from "../../api/restaurantDetails";
-import { Dish } from "../../helpers/interfaces";
+import { Dish, TableMenuList } from "../../helpers/interfaces";
 
 export const fetchRestaurantDishes = createAsyncThunk(
   "dishes/fetchRestaurants",
@@ -11,12 +11,11 @@ export const fetchRestaurantDishes = createAsyncThunk(
 );
 
 interface RestaurantDetailsState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categoriesAndDishes: any | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dishes: any | null;
+  categoriesAndDishes: TableMenuList | null;
+  dishes: Dish[] | null;
   error: string | null;
   status: string;
+  cartCount: number;
 }
 
 const initialState: RestaurantDetailsState = {
@@ -24,6 +23,7 @@ const initialState: RestaurantDetailsState = {
   dishes: null,
   error: null,
   status: "idle",
+  cartCount: 0,
 };
 
 const restaurantDetailsSlice = createSlice({
@@ -35,6 +35,12 @@ const restaurantDetailsSlice = createSlice({
     },
     setDishes: (state, action: PayloadAction<Dish[]>) => {
       state.dishes = action.payload;
+    },
+    setCount: (state, action: PayloadAction<number>) => {
+      state.cartCount = action.payload;
+    },
+    clearCount: (state) => {
+      state.cartCount = 0;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -56,6 +62,6 @@ const restaurantDetailsSlice = createSlice({
   },
 });
 
-export const { clearRestaurantDetails, setDishes, setError } = restaurantDetailsSlice.actions;
-
+export const { clearRestaurantDetails, setDishes, setCount, clearCount, setError } =
+  restaurantDetailsSlice.actions;
 export default restaurantDetailsSlice.reducer;
