@@ -1,28 +1,49 @@
-// import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchRestaurantDishes,
+  clearRestaurantDetails,
+} from "../redux/slices/restaurantDetailsSlice";
 import CategorySlide from "./CategorySlide";
 import CategoryDishes from "./CategoryDishes";
+import { RootState } from "../redux/Reducer";
+import { Dish } from "../helpers/interfaces";
 
 function CategoriesAndDishes() {
+  const dispatch = useDispatch();
+  const catAndDish = useSelector(
+    (state: RootState) => state.categoriesAndDishes?.categoriesAndDishes
+  );
+  const dishes = useSelector(
+    (state: RootState) => state.categoriesAndDishes?.dishes
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchRestaurantDishes());
+    };
+    fetchData();
+
+    () => {
+      dispatch(clearRestaurantDetails());
+    };
+  }, [dispatch]);
+
   return (
     <div className=" pt-12 md:p-2 md:pl-20 md:pr-20 relative">
       <div className="w-full flex overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 pb-1 md:mt-12">
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
-        <CategorySlide cat="salads and soup" />
+        {catAndDish?.table_menu_list?.map((list: { menu_category: string }) => (
+          <CategorySlide
+            key={list?.menu_category}
+            cat={list?.menu_category}
+            details={catAndDish?.table_menu_list}
+          />
+        ))}
       </div>
-      <div className="">
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
-        <CategoryDishes />
+      <div>
+        {dishes?.map((dishes: Dish) => (
+          <CategoryDishes key={dishes?.dish_id} details={dishes} />
+        ))}
       </div>
     </div>
   );

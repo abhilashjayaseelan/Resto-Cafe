@@ -1,10 +1,15 @@
 import { ImCart } from "react-icons/im";
+import {useSelector} from "react-redux";
+import { RootState } from "../redux/Reducer";
+import { TableMenuList } from "../helpers/interfaces";
 
 function Header() {
+  const details: TableMenuList = useSelector((state: RootState) => state.categoriesAndDishes.categoriesAndDishes);
+
   return (
     <div className="fixed bg-white h-12 w-full flex justify-between p-2 text-gray-600 md:pl-20 md:pr-20 z-10">
       <div className="text-2xl font-semibold cursor-pointer"> 
-        <p>Restaurant name</p>
+        <p>{details?.restaurant_name}</p>
       </div>
       <div className="flex items-center gap-2 pr-2 relative cursor-pointer">
         <p>My Orders</p>
