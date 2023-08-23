@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import Categories from "../components/Categories";
+import CategoriesAndDishes from "../components/CategoriesAndDishes";
 import Footer from "../components/Footer";
 
 
@@ -7,7 +7,7 @@ function Restaurant() {
   return (
     <div>
       <Header/>
-      <Categories/>
+      <CategoriesAndDishes/>
       <Footer/>
     </div>
   )

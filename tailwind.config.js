@@ -1,3 +1,5 @@
+import scrollbar from "tailwind-scrollbar";
+
 export const content = [
   "./src/**/*.html",
   "./src/**/*.js",
@@ -12,4 +14,6 @@ export const theme = {
     },
   },
 };
-export const plugins = [];
+export const plugins = [
+  scrollbar
+];

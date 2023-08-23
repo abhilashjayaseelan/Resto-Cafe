@@ -2,11 +2,11 @@ import { ImCart } from "react-icons/im";
 
 function Header() {
   return (
-    <div className="h-12 w-full flex justify-between p-2 text-gray-600">
-      <div className="text-2xl pl-3"> 
+    <div className="fixed bg-white h-12 w-full flex justify-between p-2 text-gray-600 md:pl-20 md:pr-20 z-10">
+      <div className="text-2xl font-semibold cursor-pointer"> 
         <p>Restaurant name</p>
       </div>
-      <div className="flex items-center gap-2 pr-2 relative">
+      <div className="flex items-center gap-2 pr-2 relative cursor-pointer">
         <p>My Orders</p>
         <div className="text-2xl">
           <ImCart />
