@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import CategorySlide from "./CategorySlide";
 import CategoryDishes from "./CategoryDishes";
 import { RootState } from "../redux/Reducer";
-import { Dish } from "../helpers/interfaces";
+import { Dish, MenuCategory } from "../helpers/interfaces";
 import { AppDispatch } from "../redux/Store";
+import { setDishes } from "../redux/slices/restaurantDetailsSlice";
 import {
   fetchRestaurantDishes,
   clearRestaurantDetails,
@@ -16,15 +17,17 @@ function CategoriesAndDishes() {
   const catAndDish = useSelector((state: RootState) => state.categoriesAndDishes?.categoriesAndDishes);
   const dishes = useSelector((state: RootState) => state.categoriesAndDishes?.dishes);
   const status = useSelector((state: RootState) => state.categoriesAndDishes.status);
-  const [selected, setSelected] = useState("");
+
+  const [selected, setSelected] = useState<string>(''); 
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(fetchRestaurantDishes());
+      const result = await dispatch(fetchRestaurantDishes());
+      dispatch(setDishes(result?.payload?.table_menu_list[0].category_dishes))
     };
     fetchData();
 
-    return() => {
+    return () => {
       dispatch(clearRestaurantDetails());
     };
   }, [dispatch]);
@@ -38,7 +41,7 @@ function CategoriesAndDishes() {
   return (
     <div className="min-h-screen pt-12 md:p-2 md:pl-20 md:pr-20 relative">
       <div className="w-full flex overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 pb-1 md:mt-12">
-        {catAndDish?.table_menu_list?.map((list: { menu_category: string }) => (
+        {catAndDish?.table_menu_list?.map((list: MenuCategory) => (
           <CategorySlide
             key={list?.menu_category}
             cat={list?.menu_category}
