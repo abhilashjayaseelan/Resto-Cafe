@@ -23,7 +23,7 @@ function CategoriesAndDishes() {
     };
     fetchData();
 
-    () => {
+    return() => {
       dispatch(clearRestaurantDetails());
     };
   }, [dispatch]);
