@@ -4,6 +4,7 @@ import CategorySlide from "./CategorySlide";
 import CategoryDishes from "./CategoryDishes";
 import { RootState } from "../redux/Reducer";
 import { Dish } from "../helpers/interfaces";
+import { AppDispatch } from "../redux/Store";
 import {
   fetchRestaurantDishes,
   clearRestaurantDetails,
@@ -11,7 +12,7 @@ import {
 import Shimmer from "./Shimmer";
 
 function CategoriesAndDishes() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const catAndDish = useSelector((state: RootState) => state.categoriesAndDishes?.categoriesAndDishes);
   const dishes = useSelector((state: RootState) => state.categoriesAndDishes?.dishes);
   const status = useSelector((state: RootState) => state.categoriesAndDishes.status);
