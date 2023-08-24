@@ -21,7 +21,7 @@ const CategoryDishes: React.FC<CategoryDishesProps> = ({ details }) => {
   }
 
   return (
-    <div className="p-2 flex justify-between border-b-2 border-b-gray-400">
+    <div className="p-2 flex justify-between border-b-2 border-b-gray-300">
       <div className="pl-5 relative w-4/5">
         {details?.dish_Type === 2 ? (
           <div className="h-4 w-4 border border-solid border-green-600 flex justify-center items-center absolute left-0 top-1">

@@ -8,15 +8,13 @@ import {
   fetchRestaurantDishes,
   clearRestaurantDetails,
 } from "../redux/slices/restaurantDetailsSlice";
+import Shimmer from "./Shimmer";
 
 function CategoriesAndDishes() {
   const dispatch = useDispatch();
-  const catAndDish = useSelector(
-    (state: RootState) => state.categoriesAndDishes?.categoriesAndDishes
-  );
-  const dishes = useSelector(
-    (state: RootState) => state.categoriesAndDishes?.dishes
-  );
+  const catAndDish = useSelector((state: RootState) => state.categoriesAndDishes?.categoriesAndDishes);
+  const dishes = useSelector((state: RootState) => state.categoriesAndDishes?.dishes);
+  const status = useSelector((state: RootState) => state.categoriesAndDishes.status);
   const [selected, setSelected] = useState("");
 
   useEffect(() => {
@@ -29,6 +27,12 @@ function CategoriesAndDishes() {
       dispatch(clearRestaurantDetails());
     };
   }, [dispatch]);
+
+  if(status === 'loading') {
+    return (
+      <Shimmer/>
+    )
+  }
 
   return (
     <div className="min-h-screen pt-12 md:p-2 md:pl-20 md:pr-20 relative">
