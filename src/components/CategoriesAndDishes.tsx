@@ -20,7 +20,7 @@ function CategoriesAndDishes() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchRestaurantDishes());
+      dispatch(fetchRestaurantDishes());
     };
     fetchData();
 
