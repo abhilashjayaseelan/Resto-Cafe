@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dish } from "../helpers/interfaces";
-import { setCount } from "../redux/slices/restaurantDetailsSlice";
+import { setCount, setDishCartCount } from "../redux/slices/restaurantDetailsSlice";
 import { RootState } from "../redux/Reducer";
 
 interface CategoryDishesProps {
@@ -11,11 +11,12 @@ interface CategoryDishesProps {
 const CategoryDishes: React.FC<CategoryDishesProps> = ({ details }) => {
   const dispatch = useDispatch();
   const totalCount = useSelector((state: RootState) => state.categoriesAndDishes.cartCount);
-  const [cartCount, setCartCount] = useState(0);
+  const dishCount = useSelector((state: RootState) => state.categoriesAndDishes.dishCartCount[details.dish_id] || 0);
 
   function handleCartCount(count: number) {
-    if (cartCount >= 0 && count !== -1 || cartCount > 0) {
-      setCartCount(cartCount + count);
+    if (dishCount >= 0 && count !== -1 || dishCount > 0) {
+      const newCartCount = dishCount + count;
+      dispatch(setDishCartCount({dishId: details.dish_id, count: newCartCount}))
       dispatch(setCount(totalCount + count));
     }
   }
@@ -47,7 +48,7 @@ const CategoryDishes: React.FC<CategoryDishesProps> = ({ details }) => {
               {" "}
               -{" "}
             </p>
-            <p> {cartCount} </p>
+            <p> {dishCount} </p>
             <p className="cursor-pointer" onClick={() => handleCartCount(1)}>
               {" "}
               +{" "}

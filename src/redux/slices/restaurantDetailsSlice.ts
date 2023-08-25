@@ -16,6 +16,7 @@ interface RestaurantDetailsState {
   error: string | null;
   status: string;
   cartCount: number;
+  dishCartCount: { [dishId: string]: number }; 
 }
 
 const initialState: RestaurantDetailsState = {
@@ -24,6 +25,7 @@ const initialState: RestaurantDetailsState = {
   error: null,
   status: "idle",
   cartCount: 0,
+  dishCartCount: {}
 };
 
 const restaurantDetailsSlice = createSlice({
@@ -38,6 +40,11 @@ const restaurantDetailsSlice = createSlice({
     },
     setCount: (state, action: PayloadAction<number>) => {
       state.cartCount = action.payload;
+    },
+    setDishCartCount: (state, action: PayloadAction<{ dishId: string; count: number }>) => {
+      const dishId = action.payload.dishId;
+      const count = action.payload.count;
+      state.dishCartCount[dishId] = count;
     },
     clearCount: (state) => {
       state.cartCount = 0;
@@ -62,6 +69,6 @@ const restaurantDetailsSlice = createSlice({
   },
 });
 
-export const { clearRestaurantDetails, setDishes, setCount, clearCount, setError } =
+export const { clearRestaurantDetails, setDishes, setDishCartCount, setCount, clearCount, setError } =
   restaurantDetailsSlice.actions;
 export default restaurantDetailsSlice.reducer;
